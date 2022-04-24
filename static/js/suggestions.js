@@ -1,7 +1,7 @@
 let suggestions;
 async function getCityList() {
 	cityList = await fetch(
-		"http://localhost:8123/getCity"
+		"http://localhost:8080/getCity"
 	).then((response) => {
 		if (!response.ok) {
 			console.log("Unalble to fecth time City");

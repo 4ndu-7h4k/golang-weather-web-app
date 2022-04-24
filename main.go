@@ -17,7 +17,7 @@ var tmpl *template.Template
 type weatherData struct {
 	Name      string `json:"name"`
 	StatuCode uint8  `json:"cod"`
-	TimeZone  uint32 `json:"timezone"`
+	TimeZone  int32 `json:"timezone"`
 	Cloud     []struct {
 		Icon        string `json:"icon"`
 		Description string `json:"description"`

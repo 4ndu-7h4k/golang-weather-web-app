@@ -5,7 +5,7 @@ const icon = document.querySelector(".search-icon");
 let weather = {
 	fetchWeather: function (city) {
 		fetch(
-				"http://localhost:8123/weather/" +
+				"http://localhost:8080/weather/" +
 				city
 			)
 			.then((response) => {
@@ -37,7 +37,7 @@ let weather = {
 			speed
 		} = data.wind;
 		locTime = await fetch(
-			"http://localhost:8123/time/" +
+			"http://localhost:8080/time/" +
 			timezone
 		).then((response) => {
 			if (!response.ok) {
