@@ -1,0 +1,143 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: rgb(255, 255, 255);
+    font-size: 120%;
+  }
+.search{
+  background : rgba(227, 227, 227, 0);
+  color: rgb(10, 10, 10);
+  border-radius :20px;
+}
+  
+.card {   
+  background: linear-gradient(to right,rgb(119 55 255),rgb(119 55 255), rgb(204 60 255));
+  color: rgb(255, 255, 255);
+  padding: 2em;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 420px;
+  margin: 1em;
+  position: relative;
+}
+
+.search {
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  background-image: linear-gradient(to right,rgba(255,255,255) 50%,rgba(0,0,0,0) 0%);
+}
+  
+button {
+  position : absolute;
+  margin-left : 10px;
+  border-radius: 50%;
+  border: none;
+  height: 44px;
+  width: 44px;
+  outline: none;
+  background: #ffffff;
+  color: rgb(119 55 255);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.border-left{
+  border-left: 5px solid white;
+}
+.description , .humidity , .wind {
+  padding-left: 10px;
+}
+input.search-bar {
+  border: none;
+  outline: none;
+  /* box-shadow: 0px 1px 5px rgb(10, 10, 10); */
+  padding: 0.4em 1em;
+  border-radius: 24px;
+  background: #ffffff;
+  color: rgb(8, 8, 8);
+  font-family: inherit;
+  font-size: 105%;
+  width: calc(100% - 100px);
+}
+  
+button:hover {
+  background: #7c7c7c6b;
+}
+
+h1.temp {
+  position : absolute;
+  right: 0;
+  bottom:0;
+  margin-right: 40px;
+  margin-bottom: 10%;
+  font-size : 80px;
+}
+.time-div{
+  padding-left: 0px;
+  padding-right: opx;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.weather.loading {
+  visibility: hidden;
+  max-height: 20px;
+  position: relative;
+}
+.search .autocom-box{
+  transition: 0.2s ease-in-out;
+  background: rgb(255, 255, 255);
+  padding: 0px 16px;
+  opacity: 0 ;
+  border-radius: 0px 0px 20px 20px;
+  width: calc(100% - 92px);
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.search.active .autocom-box{
+  transition: 0.2s ease-in-out;
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.autocom-box li{
+  list-style: none;
+  padding: 4px 2px;
+  display: none;
+  width: calc(100% - 100px);
+  /* width: 100%; */
+  cursor: default;
+  border-radius: 3px;
+}
+
+.search.active .autocom-box li{
+  display: block;
+}
+
+.autocom-box li:hover{
+  background: #d0cdcd;
+}
+
+.weather.loading:after {
+  position: absolute;
+  transition: 0.2s ease-in-out;
+  visibility: visible;
+  content: "Search any city/Location";
+  color: white;
+  top: 0;
+  left: 20px;
+}
