@@ -2,6 +2,29 @@ const searchWrapper = document.querySelector(".search");
 const inputBox = document.getElementById("sbox");
 const sugBox = document.querySelector(".autocom-box");
 const icon = document.querySelector(".search-icon");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+async function showPosition(position) {
+	if (position == ''){
+		return;
+	}
+	var url = "http://"+DOMAIN+":"+PORT+"/geo/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude;
+	 await fetch(url).then((response) => {
+		if (!response.ok) {
+			console.log("Unalble to fecth time weather data");
+			return;
+		}
+		return response.json();
+	})
+	.then((data) => weather.displayWeather(data));
+	
+}
+
 let weather = {
 	fetchWeather: function (city) {
 		fetch(
@@ -124,3 +147,4 @@ function showSuggestions(list) {
 	}
 	sugBox.innerHTML = listData;
 }
+getLocation();

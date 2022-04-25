@@ -135,7 +135,9 @@ func getTime(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println("Unable cast offset '" + offsetString + "'")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		json.NewEncoder(w).Encode(timeData{})
+		return 
 	}
 	currTime := getTimeOffset(offset)
 	currTimeJson := &timeData{
@@ -162,6 +164,35 @@ func getCity(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(d)
 }
+func getGeoWeather(w http.ResponseWriter, r *http.Request){
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+
+	queryLat  := r.URL.Query().Get("lat")
+	queryLon  := r.URL.Query().Get("lon")
+	if(queryLat == "" || queryLon == "" ){
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		json.NewEncoder(w).Encode(weatherData{})
+		return
+	}
+	apiKey := os.Getenv("OWMAPI")
+	resp, err := http.Get("https://api.openweathermap.org/data/2.5/weather?lat="+queryLat+"&lon="+queryLon+"&appid=" + apiKey +"&units=metric")
+	if err != nil {
+		json.NewEncoder(w).Encode(weatherData{})
+		return
+
+	}
+	defer resp.Body.Close()
+	var d weatherData
+	if err := json.NewDecoder(resp.Body).Decode(&d); err != nil {
+		json.NewEncoder(w).Encode(weatherData{})
+		return
+
+	}
+	json.NewEncoder(w).Encode(d)
+
+
+
+}
 func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	tmpl = template.Must((template.ParseFiles("template/index.html")))
@@ -170,6 +201,7 @@ func main() {
 	http.HandleFunc("/time/", getTime)
 	http.HandleFunc("/getCity/", getCity)
 	http.HandleFunc("/weather/", getWeather)
+	http.HandleFunc("/geo/weather",getGeoWeather)
 	port := os.Getenv("PORT")
 	log.Println("Staring http server at port : "+port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
