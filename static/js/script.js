@@ -5,11 +5,12 @@ const icon = document.querySelector(".search-icon");
 let weather = {
 	fetchWeather: function (city) {
 		fetch(
-				"http://localhost:8080/weather/" +
+				"http://"+DOMAIN+":"+PORT+"/weather/" +
 				city
 			)
 			.then((response) => {
 				if (!response.ok) {
+					document.querySelector(".weather").classList.add("loading");
 					alert("No weather found.");
 					throw new Error("No weather found.");
 				}
@@ -37,7 +38,7 @@ let weather = {
 			speed
 		} = data.wind;
 		locTime = await fetch(
-			"http://localhost:8080/time/" +
+			"http://"+DOMAIN+":"+PORT+"/time/" +
 			timezone
 		).then((response) => {
 			if (!response.ok) {
