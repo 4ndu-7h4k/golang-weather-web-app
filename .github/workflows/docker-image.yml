@@ -5,6 +5,10 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+env:
+   OWMAPI : ${{ secrets.OWMAPI}}
+   PORT : 80
+   DOMAIN : localhost
 
 jobs:
 
